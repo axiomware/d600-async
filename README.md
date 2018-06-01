@@ -38,7 +38,7 @@ The following steps assume that you have successfully installed Node.js. Followi
 
 Clone the repo
 
-`git clone https://github.com/axiomware/sensortag-file-async.git`
+`git clone https://github.com/axiomware/d600-async.git`
 
 or download as zip file to a local directory and unzip.
 
