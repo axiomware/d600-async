@@ -749,17 +749,21 @@ function axAdvExtractData(advItem) {
     };
 
     for (let i = 0; i < advItem.adv.length; i++) {
-        if (advObj.adv[advItem.adv[i].t])
-            advObj.adv[advItem.adv[i].t].push(advItem.adv[i].v)
-        else
-            advObj.adv[advItem.adv[i].t] = [advItem.adv[i].v]
+		if(advItem.adv[i].t){
+			if (advObj.adv[advItem.adv[i].t])
+				advObj.adv[advItem.adv[i].t].push(advItem.adv[i].v)
+			else
+				advObj.adv[advItem.adv[i].t] = [advItem.adv[i].v]
+		}
     }
     if (advItem.rsp) {
         for (let i = 0; i < advItem.rsp.length; i++) {
-            if (advObj.adv[advItem.rsp[i].t])
-                advObj.rsp[advItem.rsp[i].t].push(advItem.rsp[i].v)
-            else
-                advObj.rsp[advItem.rsp[i].t] = [advItem.rsp[i].v]
+			if(advItem.rsp[i].t){
+				if (advObj.adv[advItem.rsp[i].t])
+					advObj.rsp[advItem.rsp[i].t].push(advItem.rsp[i].v)
+				else
+					advObj.rsp[advItem.rsp[i].t] = [advItem.rsp[i].v]
+			}
         }
     }
     return advObj;
