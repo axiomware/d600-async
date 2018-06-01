@@ -749,7 +749,9 @@ function axAdvExtractData(advItem) {
     };
 
     for (let i = 0; i < advItem.adv.length; i++) {
-		if(advItem.adv[i].t){
+		if(typeof advItem.adv[i].t === "undefined"){
+		}
+		else {
 			if (advObj.adv[advItem.adv[i].t])
 				advObj.adv[advItem.adv[i].t].push(advItem.adv[i].v)
 			else
@@ -758,7 +760,9 @@ function axAdvExtractData(advItem) {
     }
     if (advItem.rsp) {
         for (let i = 0; i < advItem.rsp.length; i++) {
-			if(advItem.rsp[i].t){
+			if(typeof advItem.rsp[i].t === "undefined"){
+			}
+			else {
 				if (advObj.adv[advItem.rsp[i].t])
 					advObj.rsp[advItem.rsp[i].t].push(advItem.rsp[i].v)
 				else
