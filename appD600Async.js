@@ -749,7 +749,7 @@ function axAdvExtractData(advItem) {
     };
 
     for (let i = 0; i < advItem.adv.length; i++) {
-		if(typeof advItem.adv[i].t === "undefined"){
+		if((typeof advItem.adv[i].t === "undefined") || (typeof advItem.adv[i].v === "undefined")){
 		}
 		else {
 			if (advObj.adv[advItem.adv[i].t])
@@ -760,7 +760,7 @@ function axAdvExtractData(advItem) {
     }
     if (advItem.rsp) {
         for (let i = 0; i < advItem.rsp.length; i++) {
-			if(typeof advItem.rsp[i].t === "undefined"){
+			if((typeof advItem.rsp[i].t === "undefined") || (typeof advItem.rsp[i].v === "undefined")){
 			}
 			else {
 				if (advObj.adv[advItem.rsp[i].t])
@@ -933,49 +933,5 @@ function axUpdateAdvNodeList(targetAdvList, advArray) {
     }
 }
 
-/**
- * Format adv packets to print to file using fs
- *
- * @param {string | null} fileHandle - filehandle
- * @param {Object[]} advArray - Array of advertsisement objects from report callback
- * @param {boolean} writeHeaderFlag - write csv file header if true
- * @returns {boolean} flag set to false to prevent header write on next call
- */
-function axPrintNotificationDataToFile(fileHandle, writeHeaderFlag, ts, did, hdl, subID, data) {
-    var str = "";
-    if (fileHandle) {
-        if (writeHeaderFlag) {
-            str = "ts,did,hdl,data\n";
-            fileHandle.write(str);//write CSV header one time
-        }
-        str = `${ts},${did},${parseInt(hdl, 16)},${subID},${data}\n`;
-        fileHandle.write(str);//write CSV header one time
-        return false;//Use this value to update writeHeaderFlag in calling function
-    }
-}
 
-/**
- * Utility to wait until the callback return true
- * 
- * @param {number} intervalInMilliseconds -  Polling interval to run the callback cb
- * @param {number} timeoutInMilliseconds - Timeout in milliseconds
- * @param {function} cb - Callback function - waits in the loop until cb retunr true.
- * @returns {promise} returns a promise
- */
-function axCheckTaskCompletion(intervalInMilliseconds, timeoutInMilliseconds, cb) {
-    let self = this;
-    return new Promise((resolve, reject) => {
-        self.intervalListener = setInterval(function () {
-            if (cb()) {
-                clearInterval(self.intervalListener);
-                clearTimeout(self.timeoutVar);
-                resolve();
-            }
-        }, intervalInMilliseconds);
-        self.timeoutVar = setTimeout(function () {
-            clearInterval(self.intervalListener);
-            reject({ "result": 408, "error": 'Timeout after ' + timeoutInMilliseconds + ' ms' });
 
-        }, timeoutInMilliseconds);
-    });
-}
